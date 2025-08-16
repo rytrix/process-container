@@ -14,6 +14,9 @@ void sigterm_handler(int signum)
             kill(global_childs[i], SIGTERM);
         }
     }
+    free(global_childs);
+    global_childs = NULL;
+    global_childs_count = 0;
     exit(1);
 }
 
@@ -71,12 +74,14 @@ int main(int argc, const char** argv)
                 container(argv[i], i - 1);
             }
         }
-        // wait for the last process to exit
+        // wait for the last child process to exit
         if (waitpid(pid, &status, 0) == -1) {
             perror("waitpid failed");
             return -1;
         }
 
         free(global_childs);
+        global_childs = NULL;
+        global_childs_count = 0;
     }
 }
