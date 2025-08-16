@@ -83,5 +83,7 @@ int main(int argc, const char** argv)
         free(global_childs);
         global_childs = NULL;
         global_childs_count = 0;
+    } else {
+        printf("Usage: %s program1 program2 program3\n", argv[0]);
     }
 }
